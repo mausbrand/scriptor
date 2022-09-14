@@ -1,4 +1,4 @@
-// scripter-webworker.js
+// scriptor-webworker.js
 
 // THIS IS THE DEFAULT PYODIDE WEBWORKER
 const PYODIDE_HOME = "https://cdn.jsdelivr.net/pyodide/v0.21.2/full/";
@@ -20,8 +20,8 @@ self.onmessage = async (event) => {
     // Don't bother yet with this line, suppose our API is built in such a way:
     const {code, ...context} = event.data;
 
-    let response = await fetch("scripter.py");
-    let scripter = await response.text();
+    let response = await fetch("scriptor.py");
+    let scriptor = await response.text();
 
     // The worker copies the context in its own "memory" (an object mapping name to values)
     for (const key of Object.keys(context)) {
@@ -31,7 +31,7 @@ self.onmessage = async (event) => {
     try {
         self.postMessage({
             type: "result",
-            result: await self.pyodide.runPythonAsync(scripter + code)
+            result: await self.pyodide.runPythonAsync(scriptor + code)
         });
     } catch (error) {
         console.log(error.message);
