@@ -28,8 +28,8 @@ window.addEventListener("load", () => {
         }
     );
 
-    function writeOutput(text, cls) {
-        if (text === undefined) {
+    function writeOutput(items, cls) {
+        if (items === undefined) {
             return;
         }
 
@@ -38,7 +38,8 @@ window.addEventListener("load", () => {
         if (cls) {
             li.className = cls;
         }
-        li.innerText = text;
+
+        li.innerText = items.join(" ");
         output.appendChild(li);
     }
 
@@ -67,8 +68,8 @@ window.addEventListener("load", () => {
                 stop.click();
                 break;
 
-            case "log":
-                writeOutput(data.text, data.level);
+            case "print":
+                writeOutput(data.items, data.level);
                 break;
 
             case "result":
