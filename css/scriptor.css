@@ -70,10 +70,32 @@ h1{
   display: flex;
   flex-direction: row;
   flex: 1;
+  position: relative;
 }
+
+.content.is-loading:before{
+  position: absolute;
+  content: '';
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url('../icon/loader.svg');
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255, 255, 255, .6);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .code{
   flex: 0 0 50%;
+  width: 50vw;
+  max-width: 50vw;
   height: 100%;
 }
 
@@ -83,18 +105,22 @@ h1{
 
 .output{
   flex: 0 0 50%;
+  width: 50vw;
+  max-width: 50vw;
   overflow-y: auto;
   padding: 20px 20px 20px 0;
-  height: 100%;
+  height: calc(100vh - 100px) !important;
+  box-shadow: inset 8px 0 10px -10px rgba(0, 0, 0, .4);
 }
 
-.output ul{
+.output-list{
   margin: 0;
-  padding-left: 20px;
+  padding-left: 40px;
 }
 
 .output ul li{
   padding: 6px;
+  line-height: 1.6;
 }
 
 
