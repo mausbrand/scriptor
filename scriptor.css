@@ -1,0 +1,22 @@
+.error {
+    color: red;
+}
+
+.warning {
+    color: gold;
+}
+
+.debug {
+    color: #6A6A6A;
+}
+
+.raw {
+    font-family: monospace;
+    display: block;
+    word-wrap: break-word;
+    white-space: pre;
+}
+
+.output li {
+    white-space: break-spaces;
+}

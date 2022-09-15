@@ -151,9 +151,7 @@ class csvwriter:
 
     def fmt(self, value):
         if isinstance(value, list):
-            ret = ", ".join([self.fmt(v) for v in value])
-            print(ret)
-            return ret
+            return ", ".join([self.fmt(v) for v in value])
         elif isinstance(value, dict):
             return _json.dumps(value, sort_keys=True)
 
@@ -192,35 +190,44 @@ class csvwriter:
 class Logging():
 
     @staticmethod
-    def debug(text):
-        if not isinstance(text, str):
-            text = str(text)
+    def print(*args, level=None):
+        items = []
 
-        _self.postMessage(type="log", text=text, level="debug")
+        # Either convert to JSON, fallback to string.
+        for item in args:
+            if not isinstance(item, (str, int, float, bool)):
+                try:
+                    item = _json.dumps(item, indent=4, skipkeys=True, sort_keys=True)
+                except TypeError:
+                    item = str(item)
 
-    @staticmethod
-    def info(text):
-        if not isinstance(text, str):
-            text = str(text)
+            items.append(item)
 
-        _self.postMessage(type="log", text=text, level="info")
-
-    @staticmethod
-    def warning(text):
-        if not isinstance(text, str):
-            text = str(text)
-
-        _self.postMessage(type="log", text=text, level="warning")
+        _self.postMessage(type="print", items=_pyodide.ffi.to_js(items), level=level or "")
 
     @staticmethod
-    def error(text):
-        if not isinstance(text, str):
-            text = str(text)
+    def debug(*args):
+        Logging.print(*args, level="debug")
 
-        _self.postMessage(type="log", text=text, level="error")
+    @staticmethod
+    def info(*args):
+        Logging.print(*args, level="info")
+
+    @staticmethod
+    def warning(*args):
+        Logging.print(*args, level="warning")
+
+    @staticmethod
+    def error(*args):
+        Logging.print(*args, level="error")
 
 
 logging = Logging()
 
+
 def exit():
     _self.postMessage(type="exit")
+
+
+def print(*args):
+   logging.print(*args)
