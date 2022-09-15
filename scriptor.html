@@ -25,45 +25,70 @@
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.8/addon/edit/closebrackets.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.8/addon/edit/matchbrackets.js"></script>
 
-    <link rel="stylesheet" href="neo.css">
-    <link rel="stylesheet" href="scriptor.css">
+    <link rel="stylesheet" href="css/neo.css">
+    <link rel="stylesheet" href="css/scriptor.css">
 
     <script src="scriptor.js"></script>
 </head>
 <body>
-    <h1 id="host">Script0r²</h1>
-    <h3 class="error">Warning: Does currently (and unfortunately) only work in Chromium.</h3>
-    <hr>
-    <button id="run">▶ Run</button>
-    <button id="clear">⏏ Clear</button>
-    <button id="stop" disabled>■ Abort</button>
+    <main class="main">
+        <header class="header">
+            <div class="header-left">
+                <h1 id="host">Script0r²</h1>
+                <div class="header-note">
+                    Warning: Does currently (and unfortunately) only work in Chromium.</div>
+            </div>
+            <div class="header-right">
+                <button id="run" class="btn header-btn btn-run">
+                    <img src="icon/run.svg" class="icon">
+                    <span>Run</span>
+                </button>
+                <button id="clear" class="btn header-btn btn-clear">
+                    <img src="icon/clear.svg" class="icon">
+                    <span>Clear</span>
+                </button>
+                <button id="stop" disabled  class="btn header-btn btn-abort">
+                    <img src="icon/abort.svg" class="icon">
+                    <span>Abort</span>
+                </button>
+            </div>
+        </header>
 
-    <textarea id="code">
-# Debugging
-logging.debug("Debug")
-logging.info("Info")
-logging.warning("Warning")
-logging.error("Error")
+        <div class="content">
+            <div class="code">
+                <textarea id="code">
+                    # Debugging
+                    logging.debug("Debug")
+                    logging.info("Info")
+                    logging.warning("Warning")
+                    logging.error("Error")
 
-# Get current user
-if not (user := viur.view("/user/view/self")):
-    logging.error("You are not logged in")
-    exit()
+                    # Get current user
+                    if not (user := viur.view("/user/view/self")):
+                        logging.error("You are not logged in")
+                        exit()
 
-logging.debug("Hello " + user["name"])
+                    logging.debug("Hello " + user["name"])
 
-# Get list of all users
-for i, user in enumerate(viur.list("/user/list")):
-    logging.debug(f"""{i}: {user["name"]}""")
+                    # Get list of all users
+                    for i, user in enumerate(viur.list("/user/list")):
+                        logging.debug(f"""{i}: {user["name"]}""")
 
-# Export a CSV file with specific fields from the user module
-csv = csvwriter("key", "name", "access")
-for user in viur.list("/user/list"):
-    csv.write(user)
+                    # Export a CSV file with specific fields from the user module
+                    csv = csvwriter("key", "name", "access")
+                    for user in viur.list("/user/list"):
+                        csv.write(user)
 
-csv.download("users.csv")
-</textarea>
-    <hr>
-    <ul id="output"></ul>
+                    csv.download("users.csv")
+                </textarea>
+            </div>
+
+            <div class="output">
+                <ul id="output"></ul>
+            </div>
+
+        </div>
+    </main>
+
 </body>
 </html>
