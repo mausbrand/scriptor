@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Script0r</title>
+    <title>Script0r²</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.8/lib/codemirror.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.8/addon/fold/foldgutter.css">
@@ -35,19 +35,18 @@
         <header class="header">
             <div class="header-left">
                 <h1 id="host">Script0r²</h1>
-                <div class="header-note">
-                    Warning: Does currently (and unfortunately) only work in Chromium.</div>
+                <div class="header-note">The ViUR Scripting Environment</div>
             </div>
             <div class="header-right">
-                <button id="run" class="btn header-btn btn-run">
+                <button id="run" class="btn header-btn btn-run" title="Runs the current script">
                     <img src="icon/run.svg" class="icon">
                     <span>Run</span>
                 </button>
-                <button id="clear" class="btn header-btn btn-clear">
+                <button id="clear" class="btn header-btn btn-clear" title="Clears the output area">
                     <img src="icon/clear.svg" class="icon">
                     <span>Clear</span>
                 </button>
-                <button id="stop" disabled  class="btn header-btn btn-abort">
+                <button id="stop" disabled  class="btn header-btn btn-abort" title="Abort running script">
                     <img src="icon/abort.svg" class="icon">
                     <span>Abort</span>
                 </button>
@@ -56,31 +55,31 @@
 
         <div class="content">
             <div class="code">
-                <textarea id="code">
-                    # Debugging
-                    logging.debug("Debug")
-                    logging.info("Info")
-                    logging.warning("Warning")
-                    logging.error("Error")
+                <textarea id="code"># Debugging
+logging.debug("Debug")
+logging.warning("Warning")
+logging.error("Error")
 
-                    # Get current user
-                    if not (user := viur.view("/user/view/self")):
-                        logging.error("You are not logged in")
-                        exit()
+# Get current user
+if not (user := viur.view("/user/view/self")):
+    logging.error("You are not logged in")
+    exit()
 
-                    logging.debug("Hello " + user["name"])
+logging.debug("Hello " + user["name"])
 
-                    # Get list of all users
-                    for i, user in enumerate(viur.list("/user/list")):
-                        logging.debug(f"""{i}: {user["name"]}""")
+# Get list of all users
+for i, user in enumerate(viur.list("/user/list")):
+    print(i, user["name"])
 
-                    # Export a CSV file with specific fields from the user module
-                    csv = csvwriter("key", "name", "access")
-                    for user in viur.list("/user/list"):
-                        csv.write(user)
+# Export a CSV file with specific fields from the user module
+csv = csvwriter("key", "name", "access")
+for user in viur.list("/user/list"):
+    csv.write(user)
 
-                    csv.download("users.csv")
-                </textarea>
+csv.download("users.csv")
+
+print("CSV file with", len(csv), "entries has been exported")
+</textarea>
             </div>
 
             <div class="output">

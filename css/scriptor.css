@@ -121,6 +121,7 @@ h1{
 .output ul li{
   padding: 6px;
   line-height: 1.6;
+  white-space: break-spaces;
 }
 
 
