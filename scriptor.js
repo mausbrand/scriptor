@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
     let stop = document.querySelector("#stop");
 
     // Initialize code editor
-    editor = CodeMirror.fromTextArea(
+    let editor = CodeMirror.fromTextArea(
         document.querySelector("#code"),
         {
             mode: "python",
@@ -27,6 +27,13 @@ window.addEventListener("load", () => {
             autoCloseBrackets: true
         }
     );
+
+    // Load a script into the editor?
+    if (window.location.hash) {
+        fetch(window.location.hash.substring(1))
+            .then((response) => response.text())
+            .then((text) => editor.setValue(text))
+    }
 
     function writeOutput(items, cls) {
         if (items === undefined) {
