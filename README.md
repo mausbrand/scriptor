@@ -1,5 +1,7 @@
 # Scriptor
 
+> Scriptor was meanwhile superseded by [viur-scriptor](https://github.com/viur-framework/viur-scriptor). Please go there for an actively developed version.
+
 Scriptor is a Python scripting environment for [ViUR](https://viur.dev) running in the browser.
 
 ## About
